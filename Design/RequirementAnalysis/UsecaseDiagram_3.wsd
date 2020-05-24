@@ -1,0 +1,16 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor 用户 as user
+rectangle 服务器与用户及设备交互{
+    user -- (用户界面)
+    (用户界面) .-> (数据显示):include
+    (用户界面) .-> (指令选择):include
+    (指令选择) <.- (指令发送队列)
+    (数据显示) .-> (数据接收队列)
+    (数据接收队列) .-> (设备交互接口):extend
+    (指令发送队列) .-> (设备交互接口):extend
+}
+actor 设备 as device
+(设备交互接口) -- device
+@enduml

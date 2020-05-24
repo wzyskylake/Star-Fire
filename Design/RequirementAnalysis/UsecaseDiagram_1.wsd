@@ -3,9 +3,9 @@ left to right direction
 skinparam packageStyle rectangle
 actor 用户 as user
 rectangle 用户与传感器模块交互{
-    user --> (开启电源)
-    user ----> (网络连接)
-    user --> (关闭电源)
+    user -- (开启电源)
+    user -- (网络连接)
+    user -- (关闭电源)
     (开启电源) .-> (模块初始化):include
     (模块初始化) .-> (传感器供电开启):include
     (模块初始化) .-> (网络连接初始化):include
@@ -15,6 +15,6 @@ rectangle 用户与传感器模块交互{
 note right of (LED供电开启):LED 显示为黄色
 note right of (网络连接初始化):LED 显示为蓝色
 note "LED 显示为绿色" as N1
-(网络连接) .. N1
+(网络连接) . N1
 
 @enduml

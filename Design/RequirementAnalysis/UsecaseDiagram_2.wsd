@@ -1,0 +1,27 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor 传感器 as sensor
+actor 控制器 as controller
+rectangle 传感器与主机交互{
+    sensor -- (建立连接)
+    sensor -- (向主机上传数据)
+    (向主机上传数据) .-> (实时传输):include
+    (向主机上传数据) .-> (突发传输):include
+    controller -- (建立连接)
+    controller -- (从主机处指令)
+    (从主机处指令) .-> (同步阻塞控制):include
+    (从主机处指令) .-> (异步非阻塞控制):include
+    (建立连接) <|--- (IIC连接)
+    (建立连接) <|--- (蓝牙连接)
+    (建立连接) <|--- (WIFI连接)
+    
+}
+note "根据实际情况选用不同连接方式" as N1
+(IIC连接) .. N1
+(蓝牙连接) .. N1
+(WIFI连接) .. N1
+note "不同器件适用于不同控制方式" as N2
+(同步阻塞控制) ... N2
+(异步非阻塞控制) .. N2
+@enduml

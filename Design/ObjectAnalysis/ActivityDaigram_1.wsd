@@ -1,0 +1,18 @@
+@startuml
+|用户|
+start
+:打开电源;
+|#AntiqueWhite|设备|
+:系统初始化;
+while (网络连接是否成功) is (连接失败)
+    :重试网络连接;
+endwhile (连接成功)
+:切换为运行状态;
+while (从传感器接收数据)
+    :格式化数据;
+    :发送数据;
+endwhile
+|用户|
+:关闭电源;
+stop
+@enduml

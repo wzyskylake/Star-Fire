@@ -1,4 +1,4 @@
-@startuml
+@startuml 传感器与主机交互
 left to right direction
 skinparam packageStyle rectangle
 actor 传感器 as sensor

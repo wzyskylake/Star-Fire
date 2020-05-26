@@ -1,4 +1,4 @@
-@startuml
+@startuml 服务器与用户及设备交互
 left to right direction
 skinparam packageStyle rectangle
 actor 用户 as user

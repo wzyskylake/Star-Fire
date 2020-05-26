@@ -1,0 +1,7 @@
+{
+    "board": "arduino:avr:mega",
+    "configuration": "cpu=atmega2560",
+    "programmer": "AVR ISP",
+    "port": "/dev/tty.wchusbserial14130",
+    "sketch": "SourceCode/sketch_may25a/sketch_may25a.ino"
+}

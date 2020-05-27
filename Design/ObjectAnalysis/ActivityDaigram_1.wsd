@@ -1,8 +1,8 @@
-@startuml
+@startuml 用户与传感器模块交互活动图
 |用户|
 start
 :打开电源;
-|#AntiqueWhite|设备|
+|#AntiqueWhite|传感器模块|
 :系统初始化;
 while (网络连接是否成功) is (连接失败)
     :重试网络连接;

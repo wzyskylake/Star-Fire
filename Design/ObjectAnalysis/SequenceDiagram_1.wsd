@@ -1,3 +1,32 @@
 @startuml 环境.传感器.
+participant 主机设备 as mainfarme
+participant 传感器设备 as sensor 
+participant 服务器 as server
+participant 控制器设备 as controller
+
+loop 检测环境参数
+    activate mainfarme
+    mainfarme -> sensor:发送检测请求
+    activate sensor
+    sensor -> mainfarme:返回数据
+    deactivate sensor
+    mainfarme -> server:发送环境数据
+    activate server
+    server -> mainfarme:确认信息
+    alt 环境不需要调节
+        server --> mainfarme:未包含控制信息\n(即没有控制信息)
+        deactivate server
+    else 环境需要调节
+        server -> mainfarme:命令信息
+        activate server
+        mainfarme -> controller:动作指令(如打开风扇、打开水泵等)
+        activate controller
+        controller -> mainfarme:返回动作执行确认信息
+        deactivate controller
+        mainfarme --> server:命令执行确认(可选)
+        deactivate server
+    end
+end
+
 
 @enduml

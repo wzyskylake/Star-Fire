@@ -3,7 +3,7 @@ left to right direction
 skinparam packageStyle rectangle
 actor 传感器 as sensor
 actor 控制器 as controller
-rectangle 传感器与主机交互{
+rectangle 传感器、控制器与主机交互{
     sensor -- (建立连接)
     sensor -- (向主机上传数据)
     (向主机上传数据) .-> (实时传输):include

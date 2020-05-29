@@ -1,34 +1,82 @@
-@startuml 传感器类图
+@startuml 主机与传感器类图
+left to right direction
 class "Sensor" as sensor {
-    DeviceID : long
-    condition : string
-    calculagraph() : void
-}
-
-class "Parameter" as parameter {
-    +atmosphere_humidity : float
-    +soil_humidity : float
-    +atmosphere_temperature : float
-    +illumination : uint16_t
-    ' uinit16_t 即 unsigned short int
-    +CO2_concentration : uint16_t
+    atmosphere_humidity : float
+    soil_humidity : float
+    temperature : float
+    illumination : uint16_t
+    ' uint16_t 即 unsigned short int
+    CO2_concentration : uint16_t
     ' PPM
-    +soil_PH : float
-    +time : time_t
+    soil_PH : float
     ' 唯一时间戳
-    +measureParameter() : void
-    ' 考虑使用 JSON 来传输数据
-    +calibration() : void
+    deviceID : long
+    condition : string
+
 }
 
-interface "Request Parameter" as request {
-    setDeviceID(long) : void
-    getParameter() : void
-    getDeviceID() : long
-    restartDevice() : void
+interface "Sensor Interface" as sensor_I {
+    setDeviceID(long)
+    getParameter() 
+    getDeviceID()
+    measureParameter()
+    restartDevice()
 }
 
-sensor ..> parameter
-sensor .right.|> request
+class "Mainframe" as mainframe {
+    deviceID : long
+    condition : string
+    calculagraph()
+}
+
+interface "Mainfarme Interface" as mainframe_I {
+    setDeviceID(long)
+    getDeviceID()
+    getData()
+    setOrder()
+    addSensor()
+    restartDevice()
+}
+
+class "Controller" as controller {
+    deviceID : long
+    if_work : bool 
+    setOrder()
+    getInformation()
+    emergencyStop()
+}
+class "Fan" as fan {
+    speed : uint16_t
+    speedUP()
+    speedDown()
+}
+
+class "Light" as light {
+    LUX : uint16_t
+    turnON()
+    turnOFF()
+}
+class "Pump" as pump {
+    srartWork()
+    stopWork()
+
+}
+
+class "Air Condition" as aircondition {
+    temperature : float
+    srartWork()
+    stopWork()
+}
+
+sensor .right.|> sensor_I
+mainframe .right.|> mainframe_I
+
+controller "1" *-up- "0..*" fan
+controller "1" *-up- "0..*" light
+controller "1" *-- "0..*" pump
+controller "1" *-- "0..*" aircondition
+
+mainframe "1" *-- "1..*" sensor
+mainframe "1" *-left- "1..*" controller
 
 @enduml

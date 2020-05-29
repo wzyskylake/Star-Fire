@@ -1,3 +1,5 @@
+#include <ArduinoJson.h>
+
 /*
 Example of BH1750 library usage.
 This example initalises the BH1750 object using the default

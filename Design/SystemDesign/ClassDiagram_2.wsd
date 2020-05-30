@@ -1,3 +1,58 @@
 @startuml 服务器类图
 
+class "Receiver" as receiver {
+    listening_port : 16bit 
+    lock : boolean
+    receiveFile()
+    cleanBuffer()
+    analyzeFile()
+    sendData()
+}
+
+class "Decision Maker" as decisionmaker {
+    analyzeData()
+    invokeRules()
+    makeDecision()
+    sendDecision()
+}
+
+class "Order Maker" as ordermaker {
+    send_port : 16bit
+    lock : boolean
+    analyzeDecision()
+    buildCommunication()
+    makePackage()
+    sendPackage()
+}
+
+class "Database" as database {
+    inserField()
+    deleteField()
+    createTable()
+    deleteTable()
+}
+
+class "Web View" as webview {
+    makeNewPage()
+    getData()
+    drawPage()
+    sendInput()
+}
+
+class "Middle Ware" as middleware {
+    processData()
+    processInput()
+    sendDecision()
+    createRule()
+    deleteRule()
+}
+
+receiver <- decisionmaker
+decisionmaker <- ordermaker
+receiver -up- database
+decisionmaker -up- database 
+webview -right-> middleware
+database -up-> middleware
+ordermaker -up-> middleware
+
 @enduml

@@ -1,5 +1,5 @@
 # 1. 传感器、主机、控制器类图
-## 1.1 Sensor 类
+### 1.1 Sensor 类
 功能:主要负责传感器部分运行,可以被主机设备接入并设置设备号
 ### Sensor Interface 接口
 #### setDeviceID(long)

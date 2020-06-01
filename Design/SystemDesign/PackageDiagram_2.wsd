@@ -1,0 +1,26 @@
+@startuml
+
+package View {
+    class "Web View" as webview
+}
+
+package Middle {
+    class "Database" as database 
+    class "Middle Ware" as middleware
+}
+
+package Process {
+    class "Receiver" as receiver
+    class "Decision Maker" as decisionmaker 
+    class "Order Maker" as ordermaker
+}
+
+receiver <- decisionmaker
+decisionmaker <- ordermaker
+receiver -up- database
+decisionmaker -up- database 
+webview -right-> middleware
+database -up-> middleware
+ordermaker -up-> middleware
+
+@enduml

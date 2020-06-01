@@ -1,0 +1,41 @@
+@startuml
+
+actor Device as device
+participant Receiver as receiver
+participant DecisionMaker as decisionmaker
+database Database as database
+participant OrderMaker as ordermaker
+
+device -> receiver:parameter file
+activate receiver
+receiver -> receiver:receiveFile()\nanalyzeFile()
+receiver -> database:sendData()
+activate database
+database -> database:insertTuple()
+database -> receiver:message : insert success
+deactivate database
+receiver -> decisionmaker:sendData()
+deactivate receiver
+activate decisionmaker
+decisionmaker -> decisionmaker:analyzeData()
+decisionmaker -> database:loadRules()
+activate database
+database -> decisionmaker:invokeRules()
+decisionmaker -> decisionmaker:makeDecision()
+decisionmaker -> database:sendDecision()
+deactivate database
+decisionmaker -> ordermaker:sendDecision()
+deactivate decisionmaker
+activate ordermaker
+ordermaker -> ordermaker:analyzeDecision()\nmakePackage()
+ordermaker -> device:buildCommunication()
+activate device
+ordermaker -> ordermaker:sendPackage()
+ordermaker -> device:package of order
+deactivate ordermaker
+deactivate device
+
+
+
+
+@enduml

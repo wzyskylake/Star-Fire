@@ -26,10 +26,12 @@ class "Order Maker" as ordermaker {
 }
 
 class "Database" as database {
-    inserField()
-    deleteField()
+    inserTuple()
+    deleteTuple()
+    loadTuple()
     createTable()
     deleteTable()
+    loadRules()
 }
 
 class "Web View" as webview {

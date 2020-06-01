@@ -1,0 +1,43 @@
+@startuml
+participant Controller as controller
+participant Mainframe as mainfarme
+participant Sensor as sensor
+participant Server as server
+
+activate server
+server -> mainfarme:getDeviceID()\nor setDeviceID(long)
+activate mainfarme
+server -> mainfarme:addSensor()
+mainfarme -> sensor:setDeviceID()
+activate sensor
+sensor -> mainfarme:sensorID
+deactivate sensor
+mainfarme -> controller:getInformation()
+activate controller
+controller -> mainfarme:device information
+deactivate controller
+mainfarme -> server:hardware configuration
+deactivate server
+
+
+loop normal work
+mainfarme -> mainfarme:calculagraph()
+mainfarme -> sensor:getParameter()
+activate sensor
+sensor -> mainfarme:parameter
+deactivate sensor
+mainfarme -> server:ping
+activate server
+server -> mainfarme:getData()
+mainfarme -> server:data(JSON or Bitfllow)
+server -> mainfarme:setOrder()
+mainfarme -> server:message : \nhave got the order
+deactivate server
+mainfarme -> controller:setOrder()
+activate controller
+controller -> controller:calculagraph()
+controller -> mainfarme:message :\nmission complate
+deactivate controller
+end
+
+@enduml

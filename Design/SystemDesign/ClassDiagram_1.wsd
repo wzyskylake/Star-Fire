@@ -34,7 +34,7 @@ interface "Mainfarme Interface" as mainframe_I {
     getDeviceID()
     getData()
     setOrder()
-    addSensor()
+    addDevice()
     restartDevice()
 }
 
@@ -43,6 +43,7 @@ class "Controller" as controller {
     if_work : bool 
     setOrder()
     getInformation()
+    calculagraph()
     emergencyStop()
 }
 class "Fan" as fan {
